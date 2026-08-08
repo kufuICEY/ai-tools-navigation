@@ -130,7 +130,74 @@ const KEYWORD_TOPICS = [
   { slug: "ai-wallpaper", title: "AI 壁纸生成工具", keywords: ["AI壁纸生成工具", "AI做手机壁纸", "免费AI壁纸", "4K壁纸AI生成"] },
   { slug: "ai-product-image", title: "AI 商品主图工具", keywords: ["AI商品主图工具", "电商主图AI生成", "AI白底图工具", "商品图AI换背景"] },
   { slug: "ai-xiaohongshu-cover", title: "AI 小红书封面工具", keywords: ["AI小红书封面工具", "小红书封面AI生成", "小红书首图工具", "笔记封面AI排版"] },
-  { slug: "ai-question-bank", title: "AI 出题工具", keywords: ["AI出题工具", "AI生成练习题", "教师AI出题", "试卷AI生成"] }
+  { slug: "ai-question-bank", title: "AI 出题工具", keywords: ["AI出题工具", "AI生成练习题", "教师AI出题", "试卷AI生成"] },
+
+  // ============ 扩充篇（补强对比/语音/音乐/编程/场景）============
+  // -- 对比类 --
+  { slug: "compare-ai-notebook", title: "AI 笔记工具对比", keywords: ["AI笔记软件哪个好", "Notion和印象笔记AI对比", "AI会议纪要工具对比", "AI笔记工具测评"] },
+  { slug: "compare-ai-music", title: "AI 音乐生成工具对比", keywords: ["AI音乐工具哪个好", "Suno和Udio对比", "AI作曲工具测评", "免费AI音乐哪个强"] },
+  { slug: "compare-ai-avatar", title: "AI 数字人工具对比", keywords: ["AI数字人工具对比", "HeyGen和D-ID对比", "数字人软件哪个好用", "AI虚拟人测评"] },
+  { slug: "compare-ai-pdf", title: "AI 阅读 PDF 工具对比", keywords: ["AI读PDF哪个好", "ChatPDF替代工具", "PDF问答工具对比", "AI论文阅读工具测评"] },
+  { slug: "compare-ai-code", title: "AI 编程助手对比", keywords: ["AI编程助手哪个好", "Copilot和通义灵码对比", "Cursor好用吗", "免费AI编程工具测评"] },
+  { slug: "compare-ai-subtitle", title: "AI 字幕工具对比", keywords: ["AI字幕工具哪个好", "视频字幕软件对比", "AI自动字幕测评", "免费字幕工具哪个准"] },
+  // -- AI 语音 --
+  { slug: "ai-live-translate", title: "AI 实时翻译耳机工具", keywords: ["AI同声传译工具", "实时翻译耳机推荐", "AI实时翻译软件", "会议实时翻译工具"] },
+  { slug: "ai-voice-beautify", title: "AI 变声工具", keywords: ["AI变声器工具", "AI语音美化", "AI变声软件免费", "视频配音变声"] },
+  { slug: "ai-audio-restore", title: "AI 音频降噪工具", keywords: ["AI音频降噪工具", "录音去杂音AI", "AI消除环境音", "免费音频降噪软件"] },
+  { slug: "ai-voice-assistant", title: "AI 语音助手工具", keywords: ["AI语音助手推荐", "AI语音控制工具", "智能语音助手对比", "免费AI语音助理"] },
+  // -- AI 音乐 --
+  { slug: "ai-remix-tools", title: "AI 音乐混音工具", keywords: ["AI混音工具", "AI做伴奏", "AI音乐后期", "AI修音工具"] },
+  { slug: "ai-cover-song", title: "AI 翻唱工具", keywords: ["AI翻唱工具", "AI唱别人的歌", "AI音色翻唱", "AI翻唱软件"] },
+  { slug: "ai-lullaby", title: "AI 助眠音乐生成", keywords: ["AI助眠音乐", "AI白噪音生成", "AI睡前音乐", "AI放松音乐工具"] },
+  // -- AI 编程 --
+  { slug: "ai-lowcode", title: "AI 低代码建站工具", keywords: ["AI低代码工具", "不会代码做软件", "AI无代码平台", "AI快速开发工具"] },
+  { slug: "ai-api-testing", title: "AI 接口测试工具", keywords: ["AI接口测试工具", "AI写API测试", "AI调试接口", "AI生成mock数据"] },
+  { slug: "ai-docs-tools", title: "AI 生成代码文档工具", keywords: ["AI生成代码文档", "AI写注释工具", "代码文档自动生成", "AI文档助手编程"] },
+  // -- 场景人群 --
+  { slug: "ai-for-freelancers", title: "自由职业者 AI 工具", keywords: ["自由职业AI工具", "接单族AI提效", "自由职业者必备AI", "AI接单工具"] },
+  { slug: "ai-for-startup", title: "创业团队 AI 工具", keywords: ["创业公司AI工具", "小团队AI提效", "创业必备AI软件", "AI工具创业团队"] },
+  { slug: "ai-for-youtuber", title: "YouTuber AI 工具", keywords: ["YouTuber必备AI工具", "YouTube创作者AI", "油管博主AI工具", "海外视频AI工具"] },
+  { slug: "ai-for-designer", title: "设计师 AI 工具", keywords: ["设计师AI工具推荐", "UI设计师必备AI", "平面设计AI工具", "设计师提效AI"] },
+  // -- 更多教程 --
+  { slug: "howto-ai-transcribe", title: "AI 录音转文字教程", keywords: ["AI录音转文字怎么弄", "会议录音转文字教程", "AI语音转文字步骤", "采访录音转文字"] },
+  { slug: "howto-ai-mindmap", title: "AI 生成思维导图教程", keywords: ["AI做思维导图教程", "文字转导图怎么弄", "AI生成脑图步骤", "会议纪要转思维导图"] },
+  { slug: "howto-ai-logo", title: "AI 做 Logo 教程", keywords: ["AI做Logo教程", "AI生成Logo步骤", "不会设计用AI做Logo", "免费AI Logo生成"] },
+  { slug: "howto-ai-restore-video", title: "AI 视频修复教程", keywords: ["AI修复老视频", "模糊视频AI修复", "AI提升视频清晰度", "老视频翻新AI"] },
+  { slug: "howto-ai-data", title: "AI 数据分析教程", keywords: ["AI分析数据教程", "不懂Excel用AI分析", "AI做图表教程", "AI数据分析步骤"] },
+  // -- 垂直应用 --
+  { slug: "ai-doc-scan", title: "AI 扫描识别工具", keywords: ["AI扫描工具", "拍照识别文字APP", "AI OCR识别工具", "免费文字识别软件"] },
+  { slug: "ai-note-ocr", title: "AI 手写笔记识别工具", keywords: ["AI识别手写笔记", "手写转文字AI", "手写笔记电子化", "AI整理手写笔记"] },
+  { slug: "ai-receipt-ocr", title: "AI 发票识别工具", keywords: ["AI发票识别工具", "发票扫码录入AI", "AI报销工具", "票据识别软件"] },
+  { slug: "ai-job-hunting", title: "AI 求职工具", keywords: ["AI求职工具", "AI改简历找工作", "AI面试准备工具", "找工作AI助手"] },
+  { slug: "ai-investment", title: "AI 理财助手工具", keywords: ["AI理财助手", "AI分析股票工具", "AI记账工具", "AI财务分析工具"] },
+  { slug: "ai-shopping", title: "AI 购物比价工具", keywords: ["AI比价工具", "AI购物助手", "AI推荐商品", "AI省钱购物工具"] },
+  { slug: "ai-fitness-plan", title: "AI 健身计划工具", keywords: ["AI健身计划生成", "AI定制训练方案", "AI健身教练测评", "免费AI健身计划"] },
+  { slug: "ai-recipes", title: "AI 做饭菜谱工具", keywords: ["AI菜谱工具", "AI推荐家常菜", "AI做饭助手", "冰箱食材AI搭配"] },
+  { slug: "ai-pet-name", title: "AI 宠物名字生成工具", keywords: ["AI给宠物起名", "宠物名字生成器", "AI宠物起名工具", "猫狗名字AI"] },
+  { slug: "ai-baby-name", title: "AI 宝宝起名工具", keywords: ["AI给宝宝起名", "宝宝名字生成器", "AI起名工具", "新生儿起名AI"] },
+  { slug: "ai-interior", title: "AI 家装设计工具", keywords: ["AI家装设计工具", "AI装修效果图生成", "AI软装搭配", "AI设计房间布局"] },
+  { slug: "ai-garden", title: "AI 花园设计工具", keywords: ["AI花园设计工具", "AI庭院设计", "AI植物搭配", "AI景观设计"] },
+  { slug: "ai-fashion", title: "AI 穿搭助手工具", keywords: ["AI穿搭助手", "AI推荐穿搭", "AI试衣工具", "AI时尚搭配"] },
+  { slug: "ai-hairstyle", title: "AI 换发型工具", keywords: ["AI换发型工具", "AI试发型", "AI发型生成", "换发型效果图AI"] },
+  { slug: "ai-makeup", title: "AI 妆容试色工具", keywords: ["AI试妆工具", "AI妆容推荐", "AI美妆效果", "AI化妆模拟"] },
+  { slug: "ai-history-photo", title: "AI 历史照片上色工具", keywords: ["AI历史照片上色", "老照片修复上色", "黑白历史照片AI", "AI还原老照片"] },
+  { slug: "ai-tour-guide", title: "AI 语音导游工具", keywords: ["AI语音导游", "AI景点讲解", "AI旅游讲解工具", "免费AI导游"] },
+  { slug: "ai-language-partner", title: "AI 口语陪练工具", keywords: ["AI口语陪练", "AI英语口语对话", "AI练口语免费", "AI口语练习工具"] },
+  { slug: "ai-study-planner", title: "AI 学习计划工具", keywords: ["AI学习计划生成", "AI制定学习计划", "AI备考计划", "AI学习规划工具"] },
+  { slug: "ai-flashcards", title: "AI 背单词工具", keywords: ["AI背单词工具", "AI单词记忆软件", "AI记单词方法", "智能背单词APP"] },
+  { slug: "ai-math-word-problem", title: "AI 解数学应用题工具", keywords: ["AI解应用题", "AI数学题讲解", "AI奥数解题工具", "AI数学辅导"] },
+  { slug: "ai-physics-tutor", title: "AI 物理辅导工具", keywords: ["AI物理辅导", "AI解物理题", "AI物理学习工具", "物理不会用AI"] },
+  { slug: "ai-chemistry-tutor", title: "AI 化学辅导工具", keywords: ["AI化学辅导", "AI解化学题", "AI化学学习工具", "化学方程式AI"] },
+  { slug: "ai-history-study", title: "AI 历史学习工具", keywords: ["AI历史学习工具", "AI讲历史", "AI历史问答", "学历史用AI"] },
+  { slug: "ai-geography", title: "AI 地理学习工具", keywords: ["AI地理学习工具", "AI地图工具", "AI学地理", "地理知识AI"] },
+  { slug: "ai-books-summary", title: "AI 书籍总结工具", keywords: ["AI书籍总结工具", "AI一本书概括", "AI读书笔记生成", "AI快速读书"] },
+  { slug: "ai-news-digest", title: "AI 新闻摘要工具", keywords: ["AI新闻摘要", "AI日报工具", "AI资讯整理", "AI新闻聚合工具"] },
+  { slug: "ai-social-media-post", title: "AI 社媒发帖工具", keywords: ["AI社媒文案工具", "AI发帖助手", "AI多平台发帖", "AI社媒运营工具"] },
+  { slug: "ai-comment-reply", title: "AI 评论回复工具", keywords: ["AI回复评论", "AI客服评论", "AI评论生成", "AI留言回复工具"] },
+  { slug: "ai-tiktok-hook", title: "AI 短视频标题工具", keywords: ["AI短视频标题", "AI起爆款标题", "AI视频标题生成", "短视频标题工具"] },
+  { slug: "ai-thumbnail", title: "AI 视频封面工具", keywords: ["AI视频封面工具", "AI缩略图生成", "AI封面设计", "视频封面AI制作"] },
+  { slug: "ai-trademark", title: "AI 商标起名工具", keywords: ["AI商标起名", "AI品牌起名", "AI公司起名", "AI商标查询工具"] },
+  { slug: "ai-brand-slogan", title: "AI 品牌口号工具", keywords: ["AI品牌口号生成", "AI广告语起名", "AI标语工具", "AI品牌文案"] }
 ];
 
 /** 展开为扁平的关键词列表，方便统计 */

@@ -241,7 +241,7 @@ function generateBody(topic, index) {
     bodyHtml += pad;
   }
 
-  return { body: bodyHtml, faq };
+  return { body: bodyHtml, faq, tools, mainKw };
 }
 
 // ---------------- HTML 模板 ----------------
@@ -441,8 +441,10 @@ function articleCard(t) {
 // ---------------- 文章页 ----------------
 function buildArticles() {
   const pages = KEYWORD_TOPICS.map((topic, i) => {
-    const { body, faq } = generateBody(topic, i);
-    const mainKw = topic.keywords[0];
+    const { body, faq, tools, mainKw } = generateBody(topic, i);
+    const toolNames = tools.map(t => t.name).join("、");
+    const desc = mainKw + "，一篇讲清楚。推荐 " + toolNames + " 等 " + tools.length +
+      " 款主流 AI 工具，逐一对比免费方案、上手步骤与适用人群，并附常见问题解答，帮你快速选对工具、避免踩坑。"
 
     const faqHtml = `<div class="section-head" style="margin-top:34px"><h2>常见问题（FAQ）</h2></div>` +
       faq.map(f => `<h3>${esc(f.q)}</h3><p>${esc(f.a)}</p>`).join("");
@@ -451,7 +453,8 @@ function buildArticles() {
       adBlock("article_mid", "ad-rect", "文章中间广告") +
       `<p style="margin-top:20px;color:var(--text-faint);font-size:13px">本文由 ${esc(SITE.name)} 整理，首发于 <a href="${esc(SITE.url)}">${esc(SITE.name)}</a>。欢迎收藏、转发。</p>`;
 
-    const pageBody = `<article class="post-body">
+    const pageBody = `<nav class="breadcrumb"><a href="/">首页</a> › <a href="/articles.html">AI 文章</a> › ${esc(topic.title)}</nav>
+    <article class="post-body">
       <h1>${esc(topic.title)}</h1>
       <div class="post-meta"><span>${esc(SITE.name)}</span><span>${today()}</span><span>约 ${countCnChars(fullBody)} 字</span></div>
       ${adBlock("article_top", "ad-rect", "文章顶部广告")}
@@ -460,7 +463,7 @@ function buildArticles() {
 
     return layout({
       title: topic.title + " - " + SITE.name,
-      desc: stripHtml(body).slice(0, 150),
+      desc: desc,
       keywords: topic.keywords.join(","),
       canonical: `${SITE.url}/articles/${topic.slug}.html`,
       body: pageBody,
@@ -469,11 +472,22 @@ function buildArticles() {
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "${esc(topic.title)}",
-  "description": "${esc(stripHtml(body).slice(0, 150))}",
+  "description": "${esc(desc)}",
   "datePublished": "${today()}",
   "inLanguage": "zh-CN",
   "mainEntityOfPage": "${SITE.url}/articles/${topic.slug}.html",
   "publisher": { "@type": "Organization", "name": "${SITE.name}" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [${faq.map(f => `{
+    "@type": "Question",
+    "name": "${esc(f.q)}",
+    "acceptedAnswer": { "@type": "Answer", "text": "${esc(f.a)}" }
+  }`).join(",\n    ")}]
 }
 </script>`
     });
