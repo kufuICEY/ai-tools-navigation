@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Misc
+.DS_Store
+*.log
+.env
+.env.local
+.vercel
+
+# 沙箱残留文件（本地打包/测试产物，不入库）
+test.txt
+ziyyyspz
+*.zip

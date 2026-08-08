@@ -1,0 +1,17 @@
+{
+  "name": "ai-tools-navigation",
+  "version": "1.0.0",
+  "description": "AI 工具导航网站 - 深色简洁风格，支持广告位与 SEO 文章系统",
+  "scripts": {
+    "build": "node scripts/generate.js",
+    "articles": "node scripts/generate.js && echo '文章生成完成，输出到 dist/'",
+    "serve": "npx serve dist",
+    "dev": "node scripts/generate.js && npx serve dist"
+  },
+  "keywords": ["ai-tools", "navigation", "seo", "static-site"],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}
