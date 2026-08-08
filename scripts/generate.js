@@ -256,6 +256,7 @@ function layout({ title, desc, keywords, canonical, body, extraHead }) {
   <meta property="og:url" content="${esc(canonical)}">
   <meta name="robots" content="index,follow">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+  <link rel="shortcut icon" href="/favicon.ico">
   <link rel="stylesheet" href="/css/style.css">
   ${extraHead || ""}
 </head>
