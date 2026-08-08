@@ -32,9 +32,9 @@ const AD_CONFIG = {
   // 广告位配置。给任意广告位填上 `code` 字段即可展示自定义广告（Adsterra 等）
   slots: {
     home_top: {
-      type: "auto",
+      type: "adsterra",
       label: "首页顶部横幅",
-      code: ""   // ← 把 Adsterra 广告代码粘到这里
+      code: `<script async="async" data-cfasync="false" src="https://pl30757937.effectivecpmnetwork.com/7ac11b8c3c412a2eadb8be6b82ac2ce2/invoke.js"></script><div id="container-7ac11b8c3c412a2eadb8be6b82ac2ce2"></div>`
     },
     home_mid_1: {
       type: "responsive",
