@@ -312,7 +312,7 @@ function buildIndex() {
       </a>`;
     }).join("");
 
-    const ad = (i + 1) % 3 === 0 ? adBlock("home_mid", "ad-rect", "首页信息流广告") : "";
+    const ad = (i + 1) % 3 === 0 ? adBlock("home_mid_" + Math.ceil((i + 1) / 3), "ad-rect", "首页信息流广告") : "";
     return `<section class="section" id="cat-${esc(c.id)}">
       <div class="section-head">
         <span class="sec-ico">${esc(c.icon || "◆")}</span>
