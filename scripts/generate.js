@@ -28,6 +28,11 @@ const SITE = {
   since: 2026
 };
 
+// 联系方式（统一在此配置，隐私政策页 / 关于页共用）
+const CONTACT = {
+  email: "cleaverhatke80018@gmail.com"
+};
+
 // ---------------- 加载数据 ----------------
 const { CATEGORIES } = require("../content/tools.js");
 const { KEYWORD_TOPICS } = require("../content/keywords.js");
@@ -286,7 +291,7 @@ function footer() {
   return `<footer class="site-footer">
   <div class="container footer-inner">
     <p>${esc(SITE.name)} · ${esc(SITE.tagline)} · ${SITE.since}-${new Date().getFullYear()}</p>
-    <p>本站为信息收录站，工具版权归原作者所有 · <a href="/about.html">免责声明</a></p>
+    <p>本站为信息收录站，工具版权归原作者所有 · <a href="/about.html">关于我们</a> · <a href="/privacy-policy.html">隐私政策</a></p>
   </div>
 </footer>`;
 }
@@ -476,6 +481,42 @@ function buildArticles() {
   return pages;
 }
 
+// ---------------- 隐私政策页 ----------------
+function buildPrivacy() {
+  const body = `<article class="post-body">
+    <h1>隐私政策</h1>
+    <div class="post-content">
+      <p>欢迎访问 ${esc(SITE.name)}（以下简称"本站"）。本站非常重视您的隐私，并承诺保护您的个人信息。本政策说明我们收集哪些信息、如何使用以及您的权利。更新日期：${today()}。</p>
+      <h2>一、我们收集的信息</h2>
+      <p><strong>1. 您主动提供的信息：</strong>当您通过联系我们、提交工具收录申请时，您可能提供姓名、邮箱地址等信息。我们仅用于回复您的请求。</p>
+      <p><strong>2. 自动收集的信息：</strong>当您访问本站时，服务器和第三方服务（如 Google Analytics、Google AdSense）可能会自动记录您的浏览器类型、操作系统、访问时间、IP 地址、访问页面等标准日志信息。</p>
+      <h2>二、Cookie 的使用</h2>
+      <p>本站可能使用 Cookie 和类似技术来提升访问体验。第三方服务（如 Google AdSense）可能使用 Cookie 向您展示个性化广告。您可以通过浏览器设置管理或删除 Cookie。关于 Google 如何使用数据的详情，请访问 <a href="https://policies.google.com/technologies/partner-sites" rel="noopener nofollow" target="_blank">Google 合作伙伴政策</a>。</p>
+      <h2>三、第三方广告</h2>
+      <p>本站可能展示由第三方广告联盟（如 Google AdSense）提供的广告。这些广告服务商可能使用 Cookie 或网络信标收集您的浏览信息，用于提供与您相关的广告内容。您可以在 <a href="https://adssettings.google.com" rel="noopener nofollow" target="_blank">Google 广告设置</a> 中管理个性化广告偏好。</p>
+      <h2>四、信息的使用</h2>
+      <p>我们收集的信息仅用于：运营与维护本站、改进内容质量、统计分析访问情况、回复您的咨询。我们不会出售、出租或与无关第三方共享您的个人信息，除非法律法规要求。</p>
+      <h2>五、信息保护</h2>
+      <p>本站采取合理的技术与管理措施保护您的信息安全。但请注意，互联网传输无法保证绝对安全，请您谨慎对待个人敏感信息的在线传输。</p>
+      <h2>六、外部链接</h2>
+      <p>本站包含大量外部工具链接，这些网站有其独立的隐私政策，我们对其内容与做法不承担责任，建议您在访问前查阅相关网站的隐私政策。</p>
+      <h2>七、未成年人保护</h2>
+      <p>本站内容面向一般公众。我们不会在知情的情况下收集未成年人的个人信息。若您是监护人并发现相关问题，请联系我们处理。</p>
+      <h2>八、政策更新</h2>
+      <p>我们可能不时更新本隐私政策，更新后的政策将在本页面公布。建议您定期查看本页面。</p>
+      <h2>九、联系我们</h2>
+      <p>如果您对本隐私政策有任何疑问或建议，欢迎通过 <a href="mailto:${esc(CONTACT.email)}">${esc(CONTACT.email)}</a> 与我们联系。</p>
+    </div>
+  </article>`;
+  return layout({
+    title: "隐私政策 - " + SITE.name,
+    desc: SITE.name + " 的隐私政策，说明我们如何收集、使用和保护您的信息。",
+    keywords: "隐私政策,Privacy Policy," + SITE.name,
+    canonical: SITE.url + "/privacy-policy.html",
+    body
+  });
+}
+
 // ---------------- 关于页 ----------------
 function buildAbout() {
   const body = `<article class="post-body">
@@ -487,7 +528,8 @@ function buildAbout() {
       <h2>免责声明</h2>
       <p>本站所有工具均链接至官方来源，版权归各工具开发者所有。本站部分页面包含广告，广告内容由广告平台提供，请自行甄别。如有问题请联系我们。</p>
       <h2>联系合作</h2>
-      <p>欢迎 AI 产品方提交收录申请，也欢迎读者反馈建议：<a href="mailto:hello@example.com">hello@example.com</a></p>
+      <p>欢迎 AI 产品方提交收录申请，也欢迎读者反馈建议：<a href="mailto:${esc(CONTACT.email)}">${esc(CONTACT.email)}</a></p>
+      <p>如需了解我们如何处理您的信息，请查看 <a href="/privacy-policy.html">隐私政策</a>。</p>
     </div>
   </article>`;
   return layout({
@@ -505,6 +547,7 @@ function buildSitemap() {
   urls.push({ loc: SITE.url + "/", prio: "1.0" });
   urls.push({ loc: SITE.url + "/articles.html", prio: "0.9" });
   urls.push({ loc: SITE.url + "/about.html", prio: "0.3" });
+  urls.push({ loc: SITE.url + "/privacy-policy.html", prio: "0.3" });
   CATEGORIES.forEach(c => urls.push({ loc: `${SITE.url}/category-${c.id}.html`, prio: "0.8" }));
   KEYWORD_TOPICS.forEach(t => urls.push({ loc: `${SITE.url}/articles/${t.slug}.html`, prio: "0.7" }));
 
@@ -587,13 +630,17 @@ function main() {
   fs.writeFileSync(path.join(dist, "about.html"), buildAbout());
   console.log("✓ about.html");
 
+  // 隐私政策页
+  fs.writeFileSync(path.join(dist, "privacy-policy.html"), buildPrivacy());
+  console.log("✓ privacy-policy.html");
+
   // sitemap / robots
   fs.writeFileSync(path.join(dist, "sitemap.xml"), buildSitemap());
   fs.writeFileSync(path.join(dist, "robots.txt"), buildRobots());
   console.log("✓ sitemap.xml / robots.txt");
 
   // 统计
-  const totalPages = 1 + CATEGORIES.length + 1 + KEYWORD_TOPICS.length + 1;
+  const totalPages = 1 + CATEGORIES.length + 1 + KEYWORD_TOPICS.length + 2;
   console.log(`\n构建完成！共 ${totalPages} 个页面，文章 ${KEYWORD_TOPICS.length} 篇。`);
   console.log("部署目录：dist/");
 }
