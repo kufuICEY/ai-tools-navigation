@@ -22,7 +22,7 @@ const path = require("path");
 const SITE = {
   name: "AI 导航",
   tagline: "AI 工具大全 · 好用免费的 AI 工具导航",
-  url: "https://ai-tools.example.com", // TODO: 部署后改成你的真实域名
+  url: "https://ai-tools-navigation-ten.vercel.app", // 真实线上域名
   desc: "收录最新最好用的 AI 工具，覆盖聊天助手、AI 绘图、AI 视频、AI 写作、AI 配音、AI 编程、AI 办公等分类，全部人工筛选、免费收录。",
   keywords: "AI工具,AI导航,AI工具大全,免费AI工具,AI工具导航",
   since: 2026
