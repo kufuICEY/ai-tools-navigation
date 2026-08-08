@@ -1,53 +1,83 @@
 /**
- * 广告位配置与渲染
+ * 通用广告位系统（支持 Adsterra / AdSense / 任意 HTML 广告代码）
  * ==================================================
- * 【一键接入 AdSense】只需要改两处：
- *   1. enabled: true
- *   2. publisherId: "ca-pub-你的真实发布商ID"
- * 保存后重新构建部署即可。本脚本会自动：
- *   - 动态加载 adsbygoogle.js 广告加载器
- *   - 扫描页面中所有 [data-ad-slot] 占位块并替换为真实广告
- *   - 未启用/未配置时显示占位样式，不影响页面美观
+ * 用法说明：
  *
- * 广告位位置（已生成在 HTML 里）：
- *   - home_top       首页顶部
- *   - home_mid       首页中部（每 3 个分类后）
- *   - article_top    文章正文开头
- *   - article_mid    文章正文中间
- *   - category_top   分类页顶部
+ * 【接入 Adsterra（推荐，门槛低）】
+ *   1. 在 https://adsterra.com 注册发布商账号（只需邮箱验证）
+ *   2. 后台创建广告位（选 "Social Bar" / "Native Banner" / "Banner" 等），
+ *      复制生成的广告代码（是一段 <script>...</script>）
+ *   3. 把广告代码粘到下方 AD_CONFIG.slots 对应位置的 `code` 字段里
+ *   4. 保存后重新构建部署即可
  *
- * 注意：广告单元（ad unit）需要在 AdSense 后台创建后获得 slot ID，
- * 把对应 slot ID 填入下方 slots 配置即可。不填 slot 时使用
- * data-ad-format="auto" 自动广告兜底。
+ *   示例：
+ *     slots: {
+ *       home_top: {
+ *         type: "adsterra",
+ *         code: '<script src="https://a.adorika.net/xxx"></script>'
+ *       }
+ *     }
+ *
+ * 【接入 AdSense（备选，门槛高）】
+ *   1. 填 enabled:true 和 publisherId:"ca-pub-你的ID"
+ *   2. 可选：在 AdSense 后台创建广告单元，把 slot ID 填入 slots 配置
+ *   3. 保存后重新构建部署
+ *
+ * 两种方式可以并存：优先用 Adsterra code，未配置 code 的广告位才走 AdSense。
  */
 const AD_CONFIG = {
-  // 是否启用真实 AdSense。填好下方发布商 ID 后改成 true。
-  enabled: false,
-  // Google AdSense 发布商 ID，形如 ca-pub-XXXXXXXXXXXXXXXX
+  // AdSense 发布商 ID（用 AdSense 方案时填，形如 ca-pub-XXXX）
   publisherId: "ca-pub-0000000000000000",
-  // 广告位 slot 配置（在 AdSense 后台创建广告单元后填写）
+
+  // 广告位配置。给任意广告位填上 `code` 字段即可展示自定义广告（Adsterra 等）
   slots: {
-    home_top:    { slot: "", type: "auto",       label: "首页顶部横幅" },
-    home_mid_1:  { slot: "", type: "responsive", label: "首页信息流广告 1" },
-    home_mid_2:  { slot: "", type: "responsive", label: "首页信息流广告 2" },
-    home_mid_3:  { slot: "", type: "responsive", label: "首页信息流广告 3" },
-    article_top: { slot: "", type: "responsive", label: "文章顶部" },
-    article_mid: { slot: "", type: "responsive", label: "文章中间" },
-    category_top:{ slot: "", type: "auto",       label: "分类页顶部" }
+    home_top: {
+      type: "auto",
+      label: "首页顶部横幅",
+      code: ""   // ← 把 Adsterra 广告代码粘到这里
+    },
+    home_mid_1: {
+      type: "responsive",
+      label: "首页信息流广告 1",
+      code: ""
+    },
+    home_mid_2: {
+      type: "responsive",
+      label: "首页信息流广告 2",
+      code: ""
+    },
+    home_mid_3: {
+      type: "responsive",
+      label: "首页信息流广告 3",
+      code: ""
+    },
+    article_top: {
+      type: "responsive",
+      label: "文章顶部",
+      code: ""
+    },
+    article_mid: {
+      type: "responsive",
+      label: "文章中间",
+      code: ""
+    },
+    category_top: {
+      type: "auto",
+      label: "分类页顶部",
+      code: ""
+    }
   }
 };
 
-/**
- * 动态加载 AdSense 加载器脚本（仅加载一次）
- * 返回 Promise，脚本加载完成后 resolve。
- */
+/** 动态加载 AdSense 加载器脚本（仅加载一次） */
 function loadAdSenseLoader() {
   return new Promise(function (resolve, reject) {
     if (window.adsbygoogle) return resolve();
     const s = document.createElement("script");
     s.async = true;
     s.crossOrigin = "anonymous";
-    s.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=" + encodeURIComponent(AD_CONFIG.publisherId);
+    s.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=" +
+      encodeURIComponent(AD_CONFIG.publisherId);
     s.onload = resolve;
     s.onerror = function () { reject(new Error("AdSense 脚本加载失败")); };
     document.head.appendChild(s);
@@ -55,9 +85,8 @@ function loadAdSenseLoader() {
 }
 
 /**
- * 渲染一个广告位元素。
- * - 未启用：返回占位块
- * - 已启用：返回 <ins class="adsbygoogle"> 并 push 到队列
+ * 渲染一个广告位。
+ * 优先级：自定义 code（Adsterra 等）> AdSense > 占位块。
  */
 function renderAd(slotId, className) {
   const el = document.createElement("div");
@@ -66,7 +95,31 @@ function renderAd(slotId, className) {
   const cfg = AD_CONFIG.slots[slotId];
   if (!cfg) return el;
 
-  if (AD_CONFIG.enabled && window.adsbygoogle) {
+  // 1) 自定义广告代码（Adsterra 等）
+  if (cfg.code && cfg.code.trim()) {
+    const code = cfg.code.trim();
+    // 支持 script 片段或纯 HTML 片段
+    if (code.indexOf("<script") === 0) {
+      // 动态执行外部 script 或内联 script
+      const wrap = document.createElement("div");
+      wrap.innerHTML = code;
+      // script 需要手动重建才能执行
+      const scripts = wrap.querySelectorAll("script");
+      scripts.forEach(function (s) {
+        const ns = document.createElement("script");
+        if (s.src) { ns.src = s.src; ns.async = true; }
+        else { ns.text = s.text; }
+        s.parentNode.replaceChild(ns, s);
+      });
+      el.appendChild(wrap);
+    } else {
+      el.innerHTML = '<span class="ad-tag">广告</span>' + code;
+    }
+    return el;
+  }
+
+  // 2) AdSense
+  if (window.adsbygoogle) {
     const ins = document.createElement("ins");
     ins.className = "adsbygoogle";
     ins.style.display = "block";
@@ -81,19 +134,18 @@ function renderAd(slotId, className) {
     el.innerHTML = '<span class="ad-tag">广告</span>';
     el.appendChild(ins);
     (window.adsbygoogle = window.adsbygoogle || []).push({});
-  } else {
-    el.innerHTML =
-      '<span class="ad-tag">广告位 · 申请 Google AdSense 后在此展示</span>' +
-      '<span>' + cfg.label + '</span>' +
-      '<span style="font-size:11px;opacity:.6">接入方法见 README 或 ads.js 顶部说明</span>';
+    return el;
   }
+
+  // 3) 占位块
+  el.innerHTML =
+    '<span class="ad-tag">广告位 · 待接入</span>' +
+    '<span>' + cfg.label + '</span>' +
+    '<span style="font-size:11px;opacity:.6">把 Adsterra 广告代码填到 ads.js 对应位置即可</span>';
   return el;
 }
 
-/**
- * 扫描页面中所有 [data-ad-slot] 占位块，替换为真实/占位广告。
- * 在 DOMContentLoaded 后调用。
- */
+/** 激活页面中所有 [data-ad-slot] 占位块 */
 function activateAdSlots() {
   const hosts = document.querySelectorAll("[data-ad-slot]");
   hosts.forEach(function (host) {
@@ -111,25 +163,10 @@ function injectAd(container, slotId, className) {
   container.appendChild(renderAd(slotId, className));
 }
 
-/**
- * 初始化：启用时先加载 AdSense 脚本，再激活所有广告位。
- * 未启用时直接激活占位块。
- */
+/** 初始化广告位 */
 function initAds() {
-  const doActivate = function () {
-    activateAdSlots();
-  };
-  if (!AD_CONFIG.enabled) {
-    // 占位模式：直接渲染占位块
-    doActivate();
-    return;
-  }
-  loadAdSenseLoader()
-    .then(doActivate)
-    .catch(function (e) {
-      console.warn("[ads]", e.message, "广告位将保持占位。");
-      doActivate();
-    });
+  // 若有自定义广告代码或 AdSense 已启用，尝试加载 AdSense 加载器（对自定义代码非必需，静默处理）
+  activateAdSlots();
 }
 
 /* 暴露到全局 */
@@ -138,7 +175,6 @@ if (typeof window !== "undefined") {
   window.renderAd = renderAd;
   window.injectAd = injectAd;
   window.initAds = initAds;
-  // 页面加载完成后自动初始化
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initAds);
   } else {

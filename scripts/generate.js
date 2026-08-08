@@ -570,7 +570,7 @@ Sitemap: ${SITE.url}/sitemap.xml
 function adBlock(slot, className, label) {
   return `<div class="ad-slot ${className}" data-ad-slot="${slot}">
     <span class="ad-tag">广告</span>
-    <span>${esc(label)} · 接入 AdSense 后自动显示真实广告</span>
+    <span>${esc(label)} · 接入 Adsterra / AdSense 后自动显示真实广告</span>
   </div>`;
 }
 
