@@ -138,7 +138,8 @@ const CATEGORIES = [
       { name: "Claude", url: "https://claude.ai", desc: "Anthropic 出品的 AI 助手，代码能力强，配合 Agent 可自动改代码。", tags: ["代码强", "Agent", "编程"] },
       { name: "v0 by Vercel", url: "https://v0.dev", desc: "Vercel 出品的 AI 建站工具，一句话生成 React 前端页面。", tags: ["前端", "React", "建站"] },
       { name: "Tabnine", url: "https://www.tabnine.com", desc: "注重隐私的 AI 代码补全工具，可本地部署模型。", tags: ["隐私", "补全", "本地"] },
-      { name: "Replit", url: "https://replit.com", desc: "云端 IDE 集成 AI，在线写代码、部署应用，适合初学者。", tags: ["云端", "在线", "学习"] }
+      { name: "Replit", url: "https://replit.com", desc: "云端 IDE 集成 AI，在线写代码、部署应用，适合初学者。", tags: ["云端", "在线", "学习"] },
+      { name: "agent-qa", url: "https://www.vostride.com/", desc: "vostride 的网页与移动端 AI 测试工具，提供 memidex 持久记忆、经验证的自我改进与可复查证据。支持 CLI/MCP；模型费用另计。", tags: ["QA", "网页/移动端", "MCP", "持久记忆"] }
     ]
   },
   {
